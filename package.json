@@ -19,9 +19,11 @@
   },
   "homepage": "https://github.com/eerilai/flow_trainer#readme",
   "dependencies": {
+    "body-parser": "^1.18.2",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "jquery": "^3.3.1",
+    "knex": "^0.14.4",
     "node": "^9.11.0",
     "pg": "^7.4.1",
     "react": "^16.3.1",

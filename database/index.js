@@ -9,9 +9,9 @@ const pool = new Pool({
 const qArts = pool.query('SELECT name FROM arts');
 const qModes = pool.query('SELECT name FROM modes');
 
-const client = new Client({
-  connectionString,
-});
+// const client = new Client({
+//   connectionString,
+// });
 
 module.exports = {
   pool,
