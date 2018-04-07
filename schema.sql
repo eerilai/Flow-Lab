@@ -1,3 +1,5 @@
+DROP DATABASE IF EXISTS flow_trainer;
+
 CREATE DATABASE flow_trainer; 
 
 \c flow_trainer;
@@ -17,3 +19,12 @@ CREATE TABLE arts_modes(
   mode_id integer REFERENCES modes ON DELETE CASCADE,
   PRIMARY KEY (art_id, mode_id)
 );
+
+/* 
+startp
+psql
+\i schema.sql
+\c DB_NAME
+
+Load schema and connect to DB
+*/
