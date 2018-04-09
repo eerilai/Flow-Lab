@@ -18,7 +18,13 @@ class App extends React.Component {
       time: 0,
       min: 0,
       sec: 0,
+      currentMode: '',
     };
+    this.changeInterval = 3;
+    this.untilChange = this.changeInterval;
+    this.training = false;
+    this.modesUsed = [];
+    this.modesLeft = [];
   }
 
   componentDidMount() {
@@ -77,7 +83,7 @@ class App extends React.Component {
     }
     console.log('active modes: ', this.state.activeModes);
   }
-  
+
   async changeArt({ art }) {
     console.log(art);
     console.log('changing arts!');
@@ -100,6 +106,9 @@ class App extends React.Component {
   }
 
   startTimer() {
+    this.training = true;
+    this.modesLeft = this.state.activeModes.slice(0);
+    this.changeMode();
     this.int = setInterval(this.countDown, 1000);
   }
 
@@ -112,6 +121,25 @@ class App extends React.Component {
     if (time === 0) {
       this.int = clearInterval(this.timer);
     }
+    console.log('until change: ', this.untilChange);
+    this.untilChange = this.untilChange - 1;
+    if (this.untilChange === 0) {
+      if (this.modesLeft.length === 0) this.modesLeft = this.state.activeModes.slice(0);
+      this.changeMode();
+      this.untilChange = this.changeInterval;
+    }
+  }
+
+  changeMode() {
+    console.log(this.state.currentMode);
+    console.log(this.modesLeft);
+    const randomIndex = Math.floor(Math.random() * this.modesLeft.length);
+    console.log('random index', randomIndex);
+    const newMode = this.modesLeft[randomIndex];
+    this.modesLeft.splice(randomIndex, 1);
+    this.setState({
+      currentMode: newMode,
+    });
   }
 
   render() {
@@ -137,6 +165,9 @@ class App extends React.Component {
         <div>
           <span>{this.state.timer.m}:{this.state.timer.s}</span>
           <button onClick={this.startTimer} />
+        </div>
+        <div>
+          { this.training ? <span>{this.state.currentMode}</span> : <span /> }
         </div>
       </div>
     );
