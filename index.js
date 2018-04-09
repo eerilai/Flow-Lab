@@ -11,6 +11,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
+  res.end();
+});
+
+app.post('/', async (req, res) => {
+  console.log(req.body);
+  if (req.body.mode.length === 0) {
+    await db('arts').insert({ art: req.body.art });
+    res.end();
+  }
+  res.end();
 });
 
 app.get('/data', async (req, res) => {
