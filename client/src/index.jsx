@@ -7,12 +7,14 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.getModes = this.changeArt.bind(this);
-
+    this.startTimer = this.startTimer.bind(this);
+    this.countDown = this.countDown.bind(this);
+    this.int = 0;
     this.state = {
       arts: [],
       modes: [],
-      activeArt: '',
       activeModes: [],
+      timer: {},
       time: 0,
       min: 0,
       sec: 0,
@@ -44,14 +46,23 @@ class App extends React.Component {
     this.updateTime();
   }
 
-  async changeArt({ art }) {
-    console.log(art);
-    console.log('changing arts!');
-    this.setState({ activeModes: [] });
-    const data = await axios.get(`/data?art=${art}`);
-    this.setState({ modes: data.data });
-    console.log('active modes: ', this.state.activeModes);
-    console.log('new modes!:', this.state.modes);
+  setTimer() {
+    console.log(this.state.time);
+    let mins;
+    let secs;
+    if (this.state.time > 50) {
+      const divisor = this.state.time / 60;
+      mins = Math.floor(divisor);
+      secs = Math.ceil((divisor % 1) * 60);
+    } else {
+      mins = 0;
+      secs = this.state.time;
+    }
+    console.log('m', mins, 's', secs);
+    return {
+      m: mins,
+      s: secs,
+    };
   }
 
   toggleMode({ mode }) {
@@ -66,11 +77,41 @@ class App extends React.Component {
     }
     console.log('active modes: ', this.state.activeModes);
   }
+  
+  async changeArt({ art }) {
+    console.log(art);
+    console.log('changing arts!');
+    this.setState({ activeModes: [] });
+    const data = await axios.get(`/data?art=${art}`);
+    this.setState({ modes: data.data });
+    console.log('active modes: ', this.state.activeModes);
+    console.log('new modes!:', this.state.modes);
+  }
 
   updateTime() {
-    const time = (this.state.min * 60) + this.state.sec;
-    this.setState({ time });
+    const mins = this.state.min * 60;
+    console.log('mins: ', typeof mins);
+    const secs = this.state.sec;
+    console.log('secs: ', typeof secs);
+    const time = mins + secs;
+    console.log('time: ', typeof time);
     console.log(this.state.time);
+    this.setState({ time });
+  }
+
+  startTimer() {
+    this.int = setInterval(this.countDown, 1000);
+  }
+
+  countDown() {
+    const time = this.state.time - 1;
+    this.setState({
+      timer: this.setTimer(),
+      time,
+    });
+    if (time === 0) {
+      this.int = clearInterval(this.timer);
+    }
   }
 
   render() {
@@ -90,8 +131,12 @@ class App extends React.Component {
             </span>))}
         </div>
         <div>
-          <span><input type="number" name="minutes" value={this.state.min} min="0"onChange={e => this.setMin(e.target.value)} required />m</span>
-          <span><input type="number" name="seconds" value={this.state.sec} max="59" min="0" onChange={e => this.setSec(e.target.value)}required />s</span>
+          <span><input type="number" name="minutes" value={this.state.min} min="0" onChange={e => this.setMin(e.target.value)} />:</span>
+          <span><input type="number" name="seconds" value={this.state.sec} max="59" min="0" onChange={e => this.setSec(e.target.value)} /></span>
+        </div>
+        <div>
+          <span>{this.state.timer.m}:{this.state.timer.s}</span>
+          <button onClick={this.startTimer} />
         </div>
       </div>
     );
