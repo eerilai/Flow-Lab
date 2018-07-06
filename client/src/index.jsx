@@ -5,9 +5,12 @@ import axios from 'axios';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
+    this.userModes = JSON.parse(localStorage.userModes) || [];
+
     this.state = {
       timer: 0,
-      modes: ['tuts', 'whips', 'liquid'],
+      modes: ['tuts', 'whips', 'liquid', ...this.userModes],
       currentMode: '',
       newMode: '',
     };
@@ -16,13 +19,6 @@ class App extends React.Component {
     this.unusedModes = [];
     this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
-
-    if (localStorage.userModes) {
-      const userModes = JSON.parse(localStorage.userModes);
-      this.setState({
-        modes: [...this.state.modes, ...userModes],
-      });
-    }
 
     this.changeTimer = this.changeTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
@@ -86,6 +82,9 @@ class App extends React.Component {
 
   addMode() {
     const modes = [...this.state.modes, this.state.newMode];
+    this.userModes.push(this.state.newMode);
+    localStorage.userModes = JSON.stringify(this.userModes);
+
     this.setState({
       newMode: '',
       modes,
