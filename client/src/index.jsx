@@ -8,12 +8,33 @@ class App extends React.Component {
     this.state = {
       timer: 0,
       modes: ['tuts', 'whips', 'liquid'],
+      currentMode: '',
     };
+
     this.activeModes = {};
+    this.unusedModes = [];
+    this.modeSwitchInterval = 2;
+    this.lastSwitchTime = 0;
+
     this.changeTimer = this.changeTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
+    this.setRandomMode = this.setRandomMode.bind(this);
+  }
+
+  setRandomMode() {
+    if (this.unusedModes.length === 0) {
+      this.unusedModes = Object.keys(this.activeModes);
+    }
+    const randomIndex = Math.floor(Math.random() * this.unusedModes.length);
+    const currentMode = this.unusedModes[randomIndex];
+    this.unusedModes.splice(randomIndex, 1);
+
+    this.setState({
+      currentMode,
+    });
+    this.lastSwitchTime = this.state.timer;
   }
 
   changeTimer(e) {
@@ -23,21 +44,27 @@ class App extends React.Component {
   }
 
   checkTimer() {
-    if (this.state.timer === 0) {
-      clearInterval(this.time);
+    if (this.lastSwitchTime - this.state.timer >= this.modeSwitchInterval) {
+      this.setRandomMode();
     }
   }
 
   decrementTimer() {
-    const temp = this.state.timer - 1;
-    this.setState({
-      timer: temp,
-    });
+    if (this.state.timer > 0) {
+      const temp = this.state.timer - 1;
+      this.setState({
+        timer: temp,
+      });
+    } else {
+      clearInterval(this.time);
+    }
     this.checkTimer();
   }
 
   startTimer() {
     this.time = setInterval(this.decrementTimer, 1000);
+    this.unusedModes = [];
+    this.setRandomMode();
   }
 
   toggleMode(e) {
@@ -74,6 +101,9 @@ class App extends React.Component {
         </div>
         <div className="timer">
           {this.state.timer}
+        </div>
+        <div className="active_mode">
+          {this.state.currentMode}
         </div>
       </div>
     );
