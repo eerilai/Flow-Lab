@@ -6,7 +6,7 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
-    this.defaultModes = ['tuts', 'whips', 'liquid'];
+    this.defaultModes = ['Tuts', 'Whips', 'Liquid'];
     this.userModes = JSON.parse(localStorage.userModes) || [];
 
     this.state = {
