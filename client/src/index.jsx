@@ -8,6 +8,13 @@ class App extends React.Component {
     this.state = {
       timer: 0,
     };
+    this.changeTimer = this.changeTimer.bind(this);
+  }
+
+  changeTimer(e) {
+    this.setState({
+      timer: e.target.value,
+    });
   }
 
   render() {
@@ -21,6 +28,7 @@ class App extends React.Component {
             max="59"
             name="timer_seconds"
             placeholder="Seconds"
+            onChange={this.changeTimer}
           />
         </div>
         <div className="timer">
