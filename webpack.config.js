@@ -12,7 +12,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.jsx?/,
+        test: /\.js(x)$/,
         include: SRC_DIR,
         use: {
           loader: 'babel-loader',
@@ -20,6 +20,10 @@ module.exports = {
             presets: ['react', 'es2015'],
           },
         },
+      },
+      {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
       },
     ],
   },

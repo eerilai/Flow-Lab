@@ -1,0 +1,13 @@
+html {
+  background-color: #545454;
+  color: #FFFFFF;
+}
+
+body {
+  text-align: center;
+}
+
+.flow-trainer{
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+}
