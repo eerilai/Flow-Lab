@@ -13,7 +13,7 @@ class App extends React.Component {
 
     this.activeModes = {};
     this.unusedModes = [];
-    this.modeSwitchInterval = 2;
+    this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
 
     this.changeTimer = this.changeTimer.bind(this);
@@ -94,6 +94,14 @@ class App extends React.Component {
             name="timer_seconds"
             placeholder="Seconds"
             onChange={this.changeTimer}
+          />
+          <input
+            type="number"
+            min="1"
+            max={this.state.timer}
+            name="interval"
+            placeholder="Interval"
+            onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
           />
         </div>
         <div className="start_button">
