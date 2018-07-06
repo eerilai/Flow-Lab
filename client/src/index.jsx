@@ -6,11 +6,12 @@ class App extends React.Component {
   constructor(props) {
     super(props);
 
+    this.defaultModes = ['tuts', 'whips', 'liquid'];
     this.userModes = JSON.parse(localStorage.userModes) || [];
 
     this.state = {
       timer: 0,
-      modes: ['tuts', 'whips', 'liquid', ...this.userModes],
+      modes: [...this.defaultModes, ...this.userModes],
       currentMode: '',
       newMode: '',
     };
@@ -26,6 +27,8 @@ class App extends React.Component {
     this.toggleMode = this.toggleMode.bind(this);
     this.setRandomMode = this.setRandomMode.bind(this);
     this.addMode = this.addMode.bind(this);
+    this.deleteButton = this.deleteButton.bind(this);
+    this.deleteMode = this.deleteMode.bind(this);
   }
 
   setRandomMode() {
@@ -91,6 +94,30 @@ class App extends React.Component {
     });
   }
 
+  deleteMode(mode) {
+    const i = this.userModes.indexOf(mode);
+    this.userModes.splice(i, 1);
+    localStorage.userModes = JSON.stringify(this.userModes);
+    const modes = [...this.defaultModes, ...this.userModes];
+    this.setState({
+      modes,
+    });
+  }
+
+  deleteButton(mode) {
+    // if (!this.defaultModes.includes(mode)) {
+    //   return (
+    //     <button
+    //       className="delete_button"
+    //       onClick={this.deleteMode(mode)}
+    //     >
+    //       [X]
+    //     </button>
+    //   );
+    // }
+    return '';
+  }
+
   render() {
     return (
       <div className="flow_trainer">
@@ -99,6 +126,7 @@ class App extends React.Component {
             <div className="mode" key={mode}>
               <input type="checkbox" value={mode} onChange={this.toggleMode} />
               <span>{mode}</span>
+              {this.deleteButton(mode)}
             </div>
           ))}
         </div>
