@@ -9,6 +9,7 @@ class App extends React.Component {
       timer: 0,
       modes: ['tuts', 'whips', 'liquid'],
       currentMode: '',
+      newMode: '',
     };
 
     this.activeModes = {};
@@ -16,11 +17,19 @@ class App extends React.Component {
     this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
 
+    if (localStorage.userModes) {
+      const userModes = JSON.parse(localStorage.userModes);
+      this.setState({
+        modes: [...this.state.modes, ...userModes],
+      });
+    }
+
     this.changeTimer = this.changeTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
     this.setRandomMode = this.setRandomMode.bind(this);
+    this.addMode = this.addMode.bind(this);
   }
 
   setRandomMode() {
@@ -75,6 +84,14 @@ class App extends React.Component {
     }
   }
 
+  addMode() {
+    const modes = [...this.state.modes, this.state.newMode];
+    this.setState({
+      newMode: '',
+      modes,
+    });
+  }
+
   render() {
     return (
       <div className="flow_trainer">
@@ -85,6 +102,20 @@ class App extends React.Component {
               <span>{mode}</span>
             </div>
           ))}
+        </div>
+        <div className="custom_mode_input">
+          <input
+            type="text"
+            name="newModeInput"
+            placeholder="Add a mode"
+            value={this.state.newMode}
+            onChange={(e) => { this.setState({ newMode: e.target.value }); }}
+          />
+          <button
+            onClick={this.addMode}
+          >
+            Add
+          </button>
         </div>
         <div className="time_input">
           <input
