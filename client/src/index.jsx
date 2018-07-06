@@ -7,11 +7,13 @@ class App extends React.Component {
     super(props);
     this.state = {
       timer: 0,
+      modes: ['tuts', 'whips', 'liquid'],
     };
-    let time;
+    this.activeModes = {};
     this.changeTimer = this.changeTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
+    this.toggleMode = this.toggleMode.bind(this);
   }
 
   changeTimer(e) {
@@ -27,21 +29,38 @@ class App extends React.Component {
   }
 
   decrementTimer() {
-    let temp = --this.state.timer;
+    const temp = --this.state.timer;
     this.setState({
       timer: temp,
     });
     this.checkTimer();
   }
 
-  startTimer(e) {
+  startTimer() {
     this.time = setInterval(this.decrementTimer, 1000);
+  }
+
+  toggleMode(e) {
+    if (this.activeModes[e.target.value]) {
+      delete this.activeModes[e.target.value];
+    } else {
+      this.activeModes[e.target.value] = true;
+    }
   }
 
   render() {
     return (
       <div className="flow_trainer">
-        <div className="mode_select" />
+        <div className="mode_select">
+          {this.state.modes.map((mode) => {
+            return (
+              <div className="mode">
+                <input type="checkbox" value={mode} key={mode} onChange={this.toggleMode} />
+                <span>{mode}</span>
+              </div>
+            );
+          })}
+        </div>
         <div className="time_input">
           <input
             type="number"
