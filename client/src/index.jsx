@@ -108,15 +108,15 @@ class App extends React.Component {
 
   render() {
     return (
-      <div className="flow_trainer">
-        <div className="mode_select">
+      <div className="flow-trainer">
+        <div className="mode-select">
           {this.state.modes.map(mode => (
             <div className="mode" key={mode}>
               <input type="checkbox" value={mode} onChange={this.toggleMode} />
               <span>{mode}</span>
               {!this.defaultModes.includes(mode) && (
                 <button
-                  className="delete_button"
+                  className="delete-button"
                   onClick={() => { this.deleteMode(mode) }}
                 >
                   [X]
@@ -125,7 +125,7 @@ class App extends React.Component {
             </div>
           ))}
         </div>
-        <div className="custom_mode_input">
+        <div className="custom-mode-input">
           <input
             type="text"
             name="newModeInput"
@@ -144,7 +144,7 @@ class App extends React.Component {
             Add
           </button>
         </div>
-        <div className="time_input">
+        <div className="time-input">
           <input
             type="number"
             min="0"
@@ -162,13 +162,13 @@ class App extends React.Component {
             onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
           />
         </div>
-        <div className="start_button">
+        <div className="start-button">
           <button onClick={this.startTimer}>Start</button>
         </div>
         <div className="timer">
           {this.state.timer}
         </div>
-        <div className="active_mode">
+        <div className="active-mode">
           {this.state.currentMode}
         </div>
       </div>
