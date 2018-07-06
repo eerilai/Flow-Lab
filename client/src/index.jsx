@@ -52,14 +52,12 @@ class App extends React.Component {
     return (
       <div className="flow_trainer">
         <div className="mode_select">
-          {this.state.modes.map((mode) => {
-            return (
-              <div className="mode">
-                <input type="checkbox" value={mode} key={mode} onChange={this.toggleMode} />
-                <span>{mode}</span>
-              </div>
-            );
-          })}
+          {this.state.modes.map(mode => (
+            <div className="mode" key={mode}>
+              <input type="checkbox" value={mode} onChange={this.toggleMode} />
+              <span>{mode}</span>
+            </div>
+          ))}
         </div>
         <div className="time_input">
           <input
