@@ -27,7 +27,6 @@ class App extends React.Component {
     this.toggleMode = this.toggleMode.bind(this);
     this.setRandomMode = this.setRandomMode.bind(this);
     this.addMode = this.addMode.bind(this);
-    this.deleteButton = this.deleteButton.bind(this);
     this.deleteMode = this.deleteMode.bind(this);
   }
 
@@ -104,20 +103,6 @@ class App extends React.Component {
     });
   }
 
-  deleteButton(mode) {
-    // if (!this.defaultModes.includes(mode)) {
-    //   return (
-    //     <button
-    //       className="delete_button"
-    //       onClick={this.deleteMode(mode)}
-    //     >
-    //       [X]
-    //     </button>
-    //   );
-    // }
-    return '';
-  }
-
   render() {
     return (
       <div className="flow_trainer">
@@ -126,7 +111,14 @@ class App extends React.Component {
             <div className="mode" key={mode}>
               <input type="checkbox" value={mode} onChange={this.toggleMode} />
               <span>{mode}</span>
-              {this.deleteButton(mode)}
+              {!this.defaultModes.includes(mode) && (
+                <button
+                  className="delete_button"
+                  onClick={() => { this.deleteMode(mode) }}
+                >
+                  [X]
+                </button>
+              )}
             </div>
           ))}
         </div>
@@ -136,6 +128,11 @@ class App extends React.Component {
             name="newModeInput"
             placeholder="Add a mode"
             value={this.state.newMode}
+            onKeyPress={(e) => {
+              if (e.key === 'Enter') {
+                this.addMode();
+              }
+            }}
             onChange={(e) => { this.setState({ newMode: e.target.value }); }}
           />
           <button
