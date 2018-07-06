@@ -83,6 +83,9 @@ class App extends React.Component {
   }
 
   addMode() {
+    if (this.state.modes.includes(this.state.newMode)) {
+      return;
+    }
     const modes = [...this.state.modes, this.state.newMode];
     this.userModes.push(this.state.newMode);
     localStorage.userModes = JSON.stringify(this.userModes);
