@@ -8,13 +8,34 @@ class App extends React.Component {
     this.state = {
       timer: 0,
     };
+    let time;
     this.changeTimer = this.changeTimer.bind(this);
+    this.startTimer = this.startTimer.bind(this);
+    this.decrementTimer = this.decrementTimer.bind(this);
   }
 
   changeTimer(e) {
     this.setState({
       timer: e.target.value,
     });
+  }
+
+  checkTimer() {
+    if (this.state.timer === 0) {
+      clearInterval(this.time);
+    }
+  }
+
+  decrementTimer() {
+    let temp = --this.state.timer;
+    this.setState({
+      timer: temp,
+    });
+    this.checkTimer();
+  }
+
+  startTimer(e) {
+    this.time = setInterval(this.decrementTimer, 1000);
   }
 
   render() {
@@ -30,6 +51,9 @@ class App extends React.Component {
             placeholder="Seconds"
             onChange={this.changeTimer}
           />
+        </div>
+        <div className="start_button">
+          <button onClick={this.startTimer}>Start</button>
         </div>
         <div className="timer">
           {this.state.timer}
