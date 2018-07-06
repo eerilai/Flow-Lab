@@ -29,7 +29,7 @@ class App extends React.Component {
   }
 
   decrementTimer() {
-    const temp = --this.state.timer;
+    const temp = this.state.timer - 1;
     this.setState({
       timer: temp,
     });
