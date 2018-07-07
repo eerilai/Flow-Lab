@@ -109,67 +109,75 @@ class App extends React.Component {
   render() {
     return (
       <div className="flow-trainer">
-        <div className="mode-select">
-          {this.state.modes.map(mode => (
-            <div className="mode" key={mode}>
-              <input type="checkbox" value={mode} onChange={this.toggleMode} />
-              <span>{mode}</span>
-              {!this.defaultModes.includes(mode) && (
-                <button
-                  className="delete-button"
-                  onClick={() => { this.deleteMode(mode) }}
-                >
-                  [X]
-                </button>
-              )}
-            </div>
-          ))}
-        </div>
-        <div className="custom-mode-input">
-          <input
-            type="text"
-            name="newModeInput"
-            placeholder="Add a mode"
-            value={this.state.newMode}
-            onKeyPress={(e) => {
-              if (e.key === 'Enter') {
-                this.addMode();
-              }
-            }}
-            onChange={(e) => { this.setState({ newMode: e.target.value }); }}
-          />
-          <button
-            onClick={this.addMode}
-          >
-            Add
-          </button>
+        <div className="modes">
+          <div className="mode-select">
+            {this.state.modes.map(mode => (
+              <div className="mode" key={mode}>
+                <input type="checkbox" value={mode} onChange={this.toggleMode} />
+                <span>{mode}</span>
+                {!this.defaultModes.includes(mode) && (
+                  <button
+                    className="delete-button"
+                    onClick={() => { this.deleteMode(mode) }}
+                  >
+                    [X]
+                  </button>
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="custom-mode-input">
+            <input
+              type="text"
+              name="newModeInput"
+              placeholder="Add a mode"
+              value={this.state.newMode}
+              onKeyPress={(e) => {
+                if (e.key === 'Enter') {
+                  this.addMode();
+                }
+              }}
+              onChange={(e) => { this.setState({ newMode: e.target.value }); }}
+            />
+            <button
+              onClick={this.addMode}
+            >
+              Add
+            </button>
+          </div>
         </div>
         <div className="time-input">
-          <input
-            type="number"
-            min="0"
-            max="59"
-            name="timer_seconds"
-            placeholder="Seconds"
-            onChange={this.changeTimer}
-          />
-          <input
-            type="number"
-            min="1"
-            max={this.state.timer}
-            name="interval"
-            placeholder="Interval"
-            onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
-          />
-        </div>
+          <div className="timer">
+            <input
+              type="number"
+              min="0"
+              max="59"
+              name="timer_seconds"
+              placeholder="Seconds"
+              onChange={this.changeTimer}
+            />
+          </div>
+          <div className="time-interval">
+            <input
+              type="number"
+              min="1"
+              max={this.state.timer}
+              name="interval"
+              placeholder="Interval"
+              onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
+            />
+          </div>
         <div className="start-button">
           <button onClick={this.startTimer}>Start</button>
         </div>
-        <div className="timer">
-          {this.state.timer}
         </div>
-        <div className="active-mode">
-          {this.state.currentMode}
+        <div className="flow-timer">
+          <div className="timer">
+            {this.state.timer}
+          </div>
+          <div className="active-mode">
+            {this.state.currentMode}
+          </div>
         </div>
       </div>
     );
