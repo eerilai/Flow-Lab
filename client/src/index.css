@@ -2,11 +2,13 @@ html {
   background-color: #1e1e1e;
   color: #FFF;
   font-family: 'Noto Sans', sans-serif;
-  grid-template-rows: 50px, ;
+  font-weight: bold;
 }
 
 body {
   text-align: center;
+  display: grid;
+  grid-template-rows: 80px 1fr;
 }
 
 input {
@@ -15,9 +17,14 @@ input {
   padding: 2px;
 }
 
+#header > h1 {
+  margin: 0;
+}
+
 .flow-trainer {
+  height: 500px;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: 1fr 600px 1fr;
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
     "l modes r"
@@ -27,12 +34,24 @@ input {
 
 .modes {
   grid-area: modes;
-  /*display: flex;*/
-  overflow: visible;
+  position: relative;
+  display: grid;
+  grid-template-rows: 1fr 30px;
 }
 
 .mode-select {
+  grid-row: 1;
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-self: flex-end;
+  margin-bottom: 20px;
+}
+
+.custom-mode-input {
+  grid-row: 2;
+  bottom: 0;
+  margin: auto;
 }
 
 .time-input {
@@ -44,20 +63,27 @@ input {
   font-size: 200%;
 }
 
-.mode {
+.mode,
+.mode:hover {
   margin: 2px;
-  overflow-wrap: none
+  overflow-wrap: none;
+  cursor: pointer;
 }
 
-.mode :hover {
-  background-color: #60B0CF;
+.mode:hover {
+  color: #60B0CF;
 }
 
 .delete-button {
   color: #FFF;
-  padding: 0px;
-  margin: 0px;
-  border: 0px;
+  padding: 0;
+  margin: 0 0 0 4px;
+  border: 0;
   background-color: rgba(0,0,0,0);
   border-color: rgba(0,0,0,0);
+}
+
+.delete-button:hover {
+  background-color: #D40000;
+  cursor: pointer;
 }

@@ -98,6 +98,7 @@ class App extends React.Component {
 
   deleteMode(mode) {
     const i = this.userModes.indexOf(mode);
+    delete this.activeModes[mode];
     this.userModes.splice(i, 1);
     localStorage.userModes = JSON.stringify(this.userModes);
     const modes = [...this.defaultModes, ...this.userModes];
