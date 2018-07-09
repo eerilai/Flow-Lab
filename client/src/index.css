@@ -1,11 +1,18 @@
 html {
   background-color: #1e1e1e;
-  color: #FFFFFF;
+  color: #FFF;
   font-family: 'Noto Sans', sans-serif;
+  grid-template-rows: 50px, ;
 }
 
 body {
   text-align: center;
+}
+
+input {
+  background: #898989;
+  border: 0px;
+  padding: 2px;
 }
 
 .flow-trainer {
@@ -13,13 +20,19 @@ body {
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
-    "blankl select blankr"
-    "blankl timer-setup blankr"
-    "blankl timer blankr"
+    "l modes r"
+    "l timer-setup r"
+    "l timer r"
 }
 
 .modes {
-  grid-area: select;
+  grid-area: modes;
+  /*display: flex;*/
+  overflow: visible;
+}
+
+.mode-select {
+  display: flex;
 }
 
 .time-input {
@@ -29,4 +42,22 @@ body {
 .flow-timer {
   grid-area: timer;
   font-size: 200%;
+}
+
+.mode {
+  margin: 2px;
+  overflow-wrap: none
+}
+
+.mode :hover {
+  background-color: #60B0CF;
+}
+
+.delete-button {
+  color: #FFF;
+  padding: 0px;
+  margin: 0px;
+  border: 0px;
+  background-color: rgba(0,0,0,0);
+  border-color: rgba(0,0,0,0);
 }

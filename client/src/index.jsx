@@ -118,7 +118,7 @@ class App extends React.Component {
                 {!this.defaultModes.includes(mode) && (
                   <button
                     className="delete-button"
-                    onClick={() => { this.deleteMode(mode) }}
+                    onClick={() => { this.deleteMode(mode); }}
                   >
                     [X]
                   </button>
@@ -142,7 +142,7 @@ class App extends React.Component {
             <button
               onClick={this.addMode}
             >
-              Add
+              +
             </button>
           </div>
         </div>
@@ -167,9 +167,9 @@ class App extends React.Component {
               onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
             />
           </div>
-        <div className="start-button">
-          <button onClick={this.startTimer}>Start</button>
-        </div>
+          <div className="start-button">
+            <button onClick={this.startTimer}>Start</button>
+          </div>
         </div>
         <div className="flow-timer">
           <div className="timer">
