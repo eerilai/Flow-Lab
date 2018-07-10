@@ -17,8 +17,13 @@ input {
   padding: 2px;
 }
 
-#header > h1 {
+#header > h1,
+#header > p {
   margin: 0;
+}
+
+#header > p {
+  font-weight: normal;
 }
 
 .flow-trainer {
