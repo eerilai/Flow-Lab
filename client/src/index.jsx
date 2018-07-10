@@ -14,9 +14,9 @@ class App extends React.Component {
       modes: [...this.defaultModes, ...this.userModes],
       currentMode: '',
       newMode: '',
+      activeModes: {},
     };
 
-    this.activeModes = {};
     this.unusedModes = [];
     this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
@@ -32,7 +32,7 @@ class App extends React.Component {
 
   setRandomMode() {
     if (this.unusedModes.length === 0) {
-      this.unusedModes = Object.keys(this.activeModes);
+      this.unusedModes = Object.keys(this.state.activeModes);
     }
     const randomIndex = Math.floor(Math.random() * this.unusedModes.length);
     const currentMode = this.unusedModes[randomIndex];
@@ -74,12 +74,16 @@ class App extends React.Component {
     this.setRandomMode();
   }
 
-  toggleMode(e) {
-    if (this.activeModes[e.target.value]) {
-      delete this.activeModes[e.target.value];
+  toggleMode(mode) {
+    const { activeModes } = this.state;
+    if (activeModes[mode]) {
+      delete activeModes[mode];
     } else {
-      this.activeModes[e.target.value] = true;
+      activeModes[mode] = true;
     }
+    this.setState({
+      activeModes,
+    });
   }
 
   addMode() {
@@ -97,13 +101,16 @@ class App extends React.Component {
   }
 
   deleteMode(mode) {
+    const { activeModes } = this.state;
+    delete activeModes[mode];
+
     const i = this.userModes.indexOf(mode);
-    delete this.activeModes[mode];
     this.userModes.splice(i, 1);
     localStorage.userModes = JSON.stringify(this.userModes);
     const modes = [...this.defaultModes, ...this.userModes];
     this.setState({
       modes,
+      activeModes,
     });
   }
 
@@ -113,9 +120,12 @@ class App extends React.Component {
         <div className="modes">
           <div className="mode-select">
             {this.state.modes.map(mode => (
-              <div className="mode" key={mode}>
-                <input type="checkbox" value={mode} onChange={this.toggleMode} />
-                <span>{mode}</span>
+              <div
+                className={`mode ${Object.keys(this.state.activeModes).includes(mode) ? "active-mode":""}`}
+                key={mode}
+                onClick={() => { this.toggleMode(mode); }}
+              >
+                <p>{mode}</p>
                 {!this.defaultModes.includes(mode) && (
                   <button
                     className="delete-button"
@@ -176,7 +186,7 @@ class App extends React.Component {
           <div className="timer">
             {this.state.timer}
           </div>
-          <div className="active-mode">
+          <div className="current-mode">
             {this.state.currentMode}
           </div>
         </div>

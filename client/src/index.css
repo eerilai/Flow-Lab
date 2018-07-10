@@ -65,9 +65,19 @@ input {
 
 .mode,
 .mode:hover {
-  margin: 2px;
+  padding: 0 16px 0 4px;
+  margin: 0 0 0 4px;
   overflow-wrap: none;
   cursor: pointer;
+  position: relative;
+  border: 2px solid;
+  border-radius: 4px;
+}
+
+.mode p {
+  text-transform: capitalize;
+  margin: 0;
+  display: inline;
 }
 
 .mode:hover {
@@ -77,8 +87,11 @@ input {
 .delete-button {
   color: #FFF;
   padding: 0;
-  margin: 0 0 0 4px;
+  margin: 0 0 0 2px;
   border: 0;
+  top: 0;
+  position: absolute;
+  font-size: 8px;
   background-color: rgba(0,0,0,0);
   border-color: rgba(0,0,0,0);
 }
@@ -86,4 +99,18 @@ input {
 .delete-button:hover {
   background-color: #D40000;
   cursor: pointer;
+}
+
+input {
+
+}
+
+.active-mode {
+  border-radius: 4px;
+  background-color: #5F87C9;
+}
+
+.active-mode:hover {
+  color: #1E1E1E;
+  border-color: #FFF;
 }
