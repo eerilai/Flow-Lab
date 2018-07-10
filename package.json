@@ -1,5 +1,5 @@
 {
-  "name": "flow_trainer",
+  "name": "Flow Lab",
   "version": "1.0.0",
   "description": "Train your flow",
   "main": "index.js",
@@ -10,14 +10,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/eerilai/flow_trainer.git"
+    "url": "git+https://github.com/eerilai/Flow-Lab.git"
   },
   "author": "eerilai",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/eerilai/flow_trainer/issues"
+    "url": "https://github.com/eerilai/Flow-Lab/issues"
   },
-  "homepage": "https://github.com/eerilai/flow_trainer#readme",
+  "homepage": "https://github.com/eerilai/Flow-Lab#readme",
   "dependencies": {
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",

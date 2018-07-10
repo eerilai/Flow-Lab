@@ -1,2 +1,2 @@
-# flow_trainer
+# Flow Lab
 Train your flow
