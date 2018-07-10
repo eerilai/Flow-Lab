@@ -121,7 +121,11 @@ class App extends React.Component {
           <div className="mode-select">
             {this.state.modes.map(mode => (
               <div
-                className={`mode ${Object.keys(this.state.activeModes).includes(mode) ? "active-mode":""}`}
+                className={`
+                  mode
+                  ${Object.keys(this.state.activeModes).includes(mode) ? "active-mode":""}
+                  ${this.userModes.includes(mode) ? "user-mode": ""}
+                `}
                 key={mode}
                 onClick={() => { this.toggleMode(mode); }}
               >

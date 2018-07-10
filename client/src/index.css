@@ -65,13 +65,18 @@ input {
 
 .mode,
 .mode:hover {
-  padding: 0 16px 0 4px;
+  padding: 0 4px;
   margin: 0 0 0 4px;
   overflow-wrap: none;
   cursor: pointer;
   position: relative;
   border: 2px solid;
   border-radius: 4px;
+}
+
+.user-mode,
+.user-mode:hover {
+  padding: 0 16px 0 4px;
 }
 
 .mode p {
@@ -82,6 +87,16 @@ input {
 
 .mode:hover {
   color: #60B0CF;
+}
+
+.active-mode {
+  border-radius: 4px;
+  background-color: #5F87C9;
+}
+
+.active-mode:hover {
+  color: #1E1E1E;
+  border-color: #FFF;
 }
 
 .delete-button {
@@ -103,14 +118,4 @@ input {
 
 input {
 
-}
-
-.active-mode {
-  border-radius: 4px;
-  background-color: #5F87C9;
-}
-
-.active-mode:hover {
-  color: #1E1E1E;
-  border-color: #FFF;
 }
