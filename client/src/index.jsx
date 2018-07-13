@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TimerInterface from './TimerInterface.jsx';
 import css from './index.css';
 
 class App extends React.Component {
@@ -123,8 +124,8 @@ class App extends React.Component {
               <div
                 className={`
                   mode
-                  ${Object.keys(this.state.activeModes).includes(mode) ? "active-mode":""}
-                  ${this.userModes.includes(mode) ? "user-mode": ""}
+                  ${Object.keys(this.state.activeModes).includes(mode) ? 'active-mode' : ''}
+                  ${this.userModes.includes(mode) ? 'user-mode' : ''}
                 `}
                 key={mode}
                 onClick={() => { this.toggleMode(mode); }}
@@ -194,6 +195,7 @@ class App extends React.Component {
             {this.state.currentMode}
           </div>
         </div>
+        <TimerInterface />
       </div>
     );
   }
