@@ -29,7 +29,7 @@ input {
 .flow-trainer {
   height: 500px;
   display: grid;
-  grid-template-columns: 1fr 600px 1fr;
+  grid-template-columns: 1fr 400px 1fr;
   grid-template-rows: repeat(3, 1fr);
   grid-template-areas:
     "l modes r"
@@ -61,6 +61,7 @@ input {
 
 .time-input {
   grid-area: timer-setup;
+  margin: auto;
 }
 
 .flow-timer {
@@ -71,7 +72,7 @@ input {
 .mode,
 .mode:hover {
   padding: 0 4px;
-  margin: 0 0 0 4px;
+  margin: 0 4px 4px 0;
   overflow-wrap: none;
   cursor: pointer;
   position: relative;
