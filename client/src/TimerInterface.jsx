@@ -12,7 +12,7 @@ class TimerInterface extends React.Component {
     this.setSeconds = this.setSeconds.bind(this);
   }
 
-  setSeconds(e) {
+  setTimer(e) {
     let { value, name } = e.target;
     if (!Number.isNaN(+value)) {
       if (value.length > 2) {
@@ -45,7 +45,7 @@ class TimerInterface extends React.Component {
           max="10"
           size="1"
           value={minutes}
-          onChange={this.setSeconds}
+          onChange={this.setTimer}
         />
         :
         <input
@@ -56,7 +56,7 @@ class TimerInterface extends React.Component {
           min="0"
           max="59"
           value={seconds}
-          onChange={this.setSeconds}
+          onChange={this.setTimer}
         />
       </div>
     );
