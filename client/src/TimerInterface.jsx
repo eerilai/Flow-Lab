@@ -4,36 +4,32 @@ class TimerInterface extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      minutes: '0',
-      seconds: '00',
+      minutes: 0,
+      seconds: 0,
     };
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
-    this.setMinutes = this.setMinutes.bind(this);
     this.setSeconds = this.setSeconds.bind(this);
   }
 
-  setMinutes(e) {
-    if (!Number.isNaN(+e.key)) {
-      this.setState({
-        minutes: '0',
-      });
-      this.setState({
-        minutes: e.key,
-      });
-      this.secondsInput.current.focus();
-    }
-  }
-
   setSeconds(e) {
-    let { value } = e.target;
+    let { value, name } = e.target;
     if (!Number.isNaN(+value)) {
       if (value.length > 2) {
         value = value.slice(1);
       }
-      this.setState({
-        seconds: value,
-      });
+      if (value > 59) {
+        value = value.slice(1);
+      }
+      if (name === 'seconds') {
+        this.setState({
+          seconds: value,
+        });
+      } else if (name === 'minutes') {
+        this.setState({
+          minutes: value,
+        });
+      }
     }
   }
 
@@ -43,16 +39,18 @@ class TimerInterface extends React.Component {
       <div className="timer-interface">
         <input
           type="number"
+          name="minutes"
           className="minutes"
           ref={this.minutesInput}
           max="10"
           size="1"
           value={minutes}
-          onKeyPress={this.setMinutes}
+          onChange={this.setSeconds}
         />
         :
         <input
           type="number"
+          name="seconds"
           className="seconds"
           ref={this.secondsInput}
           min="0"
