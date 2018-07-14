@@ -9,7 +9,6 @@ class TimerInterface extends React.Component {
     };
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
-    this.setSeconds = this.setSeconds.bind(this);
   }
 
   setTimer(e) {
