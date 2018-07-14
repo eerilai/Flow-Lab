@@ -76,8 +76,6 @@ input {
   overflow-wrap: none;
   cursor: pointer;
   position: relative;
-  border: 2px solid;
-  border-radius: 4px;
 }
 
 .user-mode,
