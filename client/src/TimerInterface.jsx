@@ -7,8 +7,14 @@ class TimerInterface extends React.Component {
       minutes: 0,
       seconds: 0,
     };
+    this.setTimer = this.setTimer.bind(this);
     this.minutesInput = React.createRef();
     this.secondsInput = React.createRef();
+  }
+
+  setTime() {
+    const timeInSeconds = (this.state.minutes * 60) + (this.state.seconds * 1);
+    this.props.updateTimer(timeInSeconds);
   }
 
   setTimer(e) {
@@ -23,11 +29,11 @@ class TimerInterface extends React.Component {
       if (name === 'seconds') {
         this.setState({
           seconds: value,
-        });
+        }, this.setTime);
       } else if (name === 'minutes') {
         this.setState({
           minutes: value,
-        });
+        }, this.setTime);
       }
     }
   }
@@ -39,10 +45,9 @@ class TimerInterface extends React.Component {
         <input
           type="number"
           name="minutes"
-          className="minutes"
+          className="minutes-interface"
           ref={this.minutesInput}
-          max="10"
-          size="1"
+          max="59"
           value={minutes}
           onChange={this.setTimer}
         />
@@ -50,7 +55,7 @@ class TimerInterface extends React.Component {
         <input
           type="number"
           name="seconds"
-          className="seconds"
+          className="seconds-interface"
           ref={this.secondsInput}
           min="0"
           max="59"

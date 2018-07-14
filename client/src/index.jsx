@@ -22,7 +22,7 @@ class App extends React.Component {
     this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
 
-    this.changeTimer = this.changeTimer.bind(this);
+    this.setTimer = this.setTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
@@ -45,9 +45,9 @@ class App extends React.Component {
     this.lastSwitchTime = this.state.timer;
   }
 
-  changeTimer(e) {
+  setTimer(timer) {
     this.setState({
-      timer: e.target.value,
+      timer,
     });
   }
 
@@ -163,16 +163,7 @@ class App extends React.Component {
           </div>
         </div>
         <div className="time-input">
-          <div className="timer">
-            <input
-              type="number"
-              min="0"
-              max="59"
-              name="timer_seconds"
-              placeholder="Seconds"
-              onChange={this.changeTimer}
-            />
-          </div>
+          <TimerInterface updateTimer={this.setTimer} />
           <div className="time-interval">
             <input
               type="number"
@@ -195,7 +186,6 @@ class App extends React.Component {
             {this.state.currentMode}
           </div>
         </div>
-        <TimerInterface />
       </div>
     );
   }
