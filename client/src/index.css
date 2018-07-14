@@ -59,8 +59,7 @@ input {
   margin: auto;
 }
 
-.time-input,
-.time-input input {
+.time-input {
   grid-area: timer-setup;
   margin: auto;
 }
