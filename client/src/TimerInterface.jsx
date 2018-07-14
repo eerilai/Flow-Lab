@@ -47,6 +47,7 @@ class TimerInterface extends React.Component {
           name="minutes"
           className="minutes-interface"
           ref={this.minutesInput}
+          min="0"
           max="59"
           value={minutes}
           onChange={this.setTimer}
