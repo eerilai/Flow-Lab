@@ -12,6 +12,8 @@ class App extends React.Component {
 
     this.state = {
       timer: 0,
+      seconds: 0,
+      minutes: 0,
       modes: [...this.defaultModes, ...this.userModes],
       currentMode: '',
       newMode: '',
@@ -22,6 +24,7 @@ class App extends React.Component {
     this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
 
+    this.convertToMinutes = this.convertToMinutes.bind(this);
     this.setTimer = this.setTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
@@ -46,8 +49,18 @@ class App extends React.Component {
   }
 
   setTimer(timer) {
+    this.setState(
+      { timer },
+      this.convertToMinutes,
+    );
+  }
+
+  convertToMinutes() {
+    const minutes = Math.floor(this.state.timer / 60);
+    const seconds = this.state.timer - (minutes * 60);
     this.setState({
-      timer,
+      seconds,
+      minutes,
     });
   }
 
@@ -60,9 +73,10 @@ class App extends React.Component {
   decrementTimer() {
     if (this.state.timer > 0) {
       const temp = this.state.timer - 1;
-      this.setState({
-        timer: temp,
-      });
+      this.setState(
+        { timer: temp },
+        this.convertToMinutes,
+      );
     } else {
       clearInterval(this.time);
     }
@@ -181,6 +195,9 @@ class App extends React.Component {
         <div className="flow-timer">
           <div className="timer">
             {this.state.timer}
+          </div>
+          <div className="timer">
+            {this.state.minutes}:{this.state.seconds}
           </div>
           <div className="current-mode">
             {this.state.currentMode}
