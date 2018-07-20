@@ -11,9 +11,9 @@ class App extends React.Component {
     this.userModes = JSON.parse(localStorage.userModes) || [];
 
     this.state = {
-      timer: 0,
-      seconds: 0,
-      minutes: 0,
+      timer: 180,
+      secondsDisplay: '0',
+      minutesDisplay: '3',
       modes: [...this.defaultModes, ...this.userModes],
       currentMode: '',
       newMode: '',
@@ -58,10 +58,13 @@ class App extends React.Component {
 
   convertToMinutes() {
     const minutes = Math.floor(this.state.timer / 60);
-    const seconds = this.state.timer - (minutes * 60);
+    let seconds = this.state.timer - (minutes * 60);
+    if (seconds < 10) {
+      seconds = `0${seconds}`;
+    }
     this.setState({
-      seconds,
-      minutes,
+      secondsDisplay: seconds,
+      minutesDisplay: minutes,
     });
   }
 
@@ -155,7 +158,7 @@ class App extends React.Component {
     } else {
       timerDisplay = (
         <div className="timer">
-          {this.state.minutes}:{this.state.seconds}
+          {this.state.minutesDisplay}:{this.state.secondsDisplay}
         </div>
       );
     }

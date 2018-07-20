@@ -4,7 +4,7 @@ class TimerInterface extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      minutes: 0,
+      minutes: 3,
       seconds: 0,
     };
     this.setTimer = this.setTimer.bind(this);
@@ -52,7 +52,7 @@ class TimerInterface extends React.Component {
           value={minutes}
           onChange={this.setTimer}
         />
-        :
+        m
         <input
           type="number"
           name="seconds"
@@ -63,6 +63,7 @@ class TimerInterface extends React.Component {
           value={seconds}
           onChange={this.setTimer}
         />
+        s
       </div>
     );
   }
