@@ -18,6 +18,7 @@ class App extends React.Component {
       currentMode: '',
       newMode: '',
       activeModes: {},
+      isTimerActive: false,
     };
 
     this.unusedModes = [];
@@ -84,6 +85,7 @@ class App extends React.Component {
   }
 
   startTimer() {
+    this.state.isTimerActive = true;
     this.time = setInterval(this.decrementTimer, 1000);
     this.unusedModes = [];
     this.setRandomMode();
@@ -130,6 +132,33 @@ class App extends React.Component {
   }
 
   render() {
+    let timerDisplay = '';
+    if (this.state.isTimerActive === false) {
+      timerDisplay = (
+        <div className="time-input">
+          <TimerInterface updateTimer={this.setTimer} />
+          <div className="time-interval">
+            <input
+              type="number"
+              min="1"
+              max={this.state.timer}
+              name="interval"
+              placeholder="Interval"
+              onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
+            />
+          </div>
+          <div className="start-button">
+            <button onClick={this.startTimer}>Start</button>
+          </div>
+        </div>
+      );
+    } else {
+      timerDisplay = (
+        <div className="timer">
+          {this.state.minutes}:{this.state.seconds}
+        </div>
+      );
+    }
     return (
       <div className="flow-trainer">
         <div className="modes">
@@ -176,29 +205,8 @@ class App extends React.Component {
             </button>
           </div>
         </div>
-        <div className="time-input">
-          <TimerInterface updateTimer={this.setTimer} />
-          <div className="time-interval">
-            <input
-              type="number"
-              min="1"
-              max={this.state.timer}
-              name="interval"
-              placeholder="Interval"
-              onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
-            />
-          </div>
-          <div className="start-button">
-            <button onClick={this.startTimer}>Start</button>
-          </div>
-        </div>
         <div className="flow-timer">
-          <div className="timer">
-            {this.state.timer}
-          </div>
-          <div className="timer">
-            {this.state.minutes}:{this.state.seconds}
-          </div>
+          {timerDisplay}
           <div className="current-mode">
             {this.state.currentMode}
           </div>
