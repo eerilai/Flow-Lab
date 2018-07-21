@@ -16,6 +16,7 @@ class App extends React.Component {
       minutesDisplay: '3',
       modes: [...this.defaultModes, ...this.userModes],
       currentMode: '',
+      nextMode:'',
       newMode: '',
       activeModes: {},
       isTimerActive: false,
@@ -38,16 +39,34 @@ class App extends React.Component {
   }
 
   setRandomMode() {
+
+    const pickMode = () => {
+      const randomIndex = Math.floor(Math.random() * this.unusedModes.length);
+      const mode = this.unusedModes[randomIndex];
+      this.unusedModes.splice(randomIndex, 1);
+      return mode;
+    };
+
     if (this.unusedModes.length === 0) {
       this.unusedModes = Object.keys(this.state.activeModes);
     }
-    const randomIndex = Math.floor(Math.random() * this.unusedModes.length);
-    const currentMode = this.unusedModes[randomIndex];
-    this.unusedModes.splice(randomIndex, 1);
 
+    if (this.state.currentMode === '') {
+      const currentMode = pickMode();
+      this.setState({
+        currentMode,
+      });
+    } else {
+      this.setState({
+        currentMode: this.state.nextMode,
+      });
+    }
+
+    const nextMode = pickMode();
     this.setState({
-      currentMode,
+      nextMode,
     });
+
     this.lastSwitchTime = this.state.timer;
   }
 
@@ -104,6 +123,7 @@ class App extends React.Component {
       isTimerActive: false,
       timer: this.initialTime,
       currentMode: '',
+      nextMode: '',
     });
   }
 
@@ -222,8 +242,11 @@ class App extends React.Component {
         </div>
         <div className="flow-timer">
           {timerDisplay}
-          <div className="current-mode anim-text-flow">
-            <span>{this.state.currentMode}</span>
+          <div className="mode-display">
+            <div className="current-mode anim-text-flow">
+              <span>{this.state.currentMode}</span>
+            </div>
+            <div className="next-mode">{this.state.nextMode}</div>
           </div>
         </div>
         {this.state.isTimerActive ? (

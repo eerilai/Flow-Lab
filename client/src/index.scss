@@ -147,6 +147,13 @@ input[type=number]::-webkit-outer-spin-button {
   border-color: #FFF;
 }
 
+.next-mode {
+  text-align: right;
+  font-size: 14px;
+  margin: 5px 35px 0 0;
+  color: #606060;
+}
+
 .timer-control {
   margin-top: 5px;
   grid-area: control;
