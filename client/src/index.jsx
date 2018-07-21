@@ -212,8 +212,8 @@ class App extends React.Component {
         </div>
         <div className="flow-timer">
           {timerDisplay}
-          <div className="current-mode">
-            {this.state.currentMode}
+          <div className="current-mode anim-text-flow">
+            <span>{this.state.currentMode}</span>
           </div>
         </div>
       </div>

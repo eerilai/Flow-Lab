@@ -60,6 +60,11 @@ input {
   grid-row: 2;
   bottom: 0;
   margin: auto;
+
+  input {
+    background-color: rgba(255,255,255,.1);
+    color: white;
+  }
 }
 
 .time-input {
@@ -153,4 +158,39 @@ input[type=number]::-webkit-outer-spin-button {
 .delete-button:hover {
   background-color: #D40000;
   cursor: pointer;
+}
+
+// Animation by @hendrysadrak from codemyui.com
+.anim-text-flow,
+.anim-text-flow-hover:hover {
+
+  $animationSteps: 20;
+  $animationDuration: 50;
+  $animationElement: span;
+  $animationElementsCount: 100;
+  $delayBetweenLetters: 0.2;
+
+  #{$animationElement} {
+    animation-name: anim-text-flow-keys;
+    animation-duration: #{$animationDuration}s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    animation-fill-mode: forwards;
+  }
+
+  @keyframes anim-text-flow-keys {
+    @for $i from 0 through $animationSteps {
+      #{percentage($i * (1 / $animationSteps))} {
+        color: hsla(random(365), 60, 60, 1);
+      }
+    }
+  }
+
+  $totalDelayTime: $animationElementsCount * $delayBetweenLetters;
+
+  @for $i from 1 through $animationElementsCount {
+    #{$animationElement}:nth-of-type(#{$i}) {
+      animation-delay: #{($i * $delayBetweenLetters) - $totalDelayTime}s;
+    }
+  }
 }
