@@ -14,9 +14,10 @@ class App extends React.Component {
       timer: 180,
       secondsDisplay: '0',
       minutesDisplay: '3',
+      timeToNextMode: 0,
       modes: [...this.defaultModes, ...this.userModes],
       currentMode: '',
-      nextMode:'',
+      nextMode: '',
       newMode: '',
       activeModes: {},
       isTimerActive: false,
@@ -39,7 +40,6 @@ class App extends React.Component {
   }
 
   setRandomMode() {
-
     const pickMode = () => {
       const randomIndex = Math.floor(Math.random() * this.unusedModes.length);
       const mode = this.unusedModes[randomIndex];
@@ -65,6 +65,7 @@ class App extends React.Component {
     const nextMode = pickMode();
     this.setState({
       nextMode,
+      timeToNextMode: this.modeSwitchInterval,
     });
 
     this.lastSwitchTime = this.state.timer;
@@ -98,8 +99,12 @@ class App extends React.Component {
   decrementTimer() {
     if (this.state.timer > 0) {
       const temp = this.state.timer - 1;
+      const nextIn = this.state.timeToNextMode - 1;
       this.setState(
-        { timer: temp },
+        {
+          timer: temp,
+          timeToNextMode: nextIn,
+        },
         this.convertToMinutes,
       );
     } else {
@@ -111,7 +116,9 @@ class App extends React.Component {
   startTimer() {
     this.initialTime = this.state.timer;
     this.convertToMinutes();
-    this.state.isTimerActive = true;
+    this.setState({
+      isTimerActive: true,
+    });
     this.time = setInterval(this.decrementTimer, 1000);
     this.unusedModes = [];
     this.setRandomMode();
@@ -124,6 +131,7 @@ class App extends React.Component {
       timer: this.initialTime,
       currentMode: '',
       nextMode: '',
+      timeToNextMode: this.modeSwitchInterval,
     });
   }
 
@@ -246,7 +254,14 @@ class App extends React.Component {
             <div className="current-mode anim-text-flow">
               <span>{this.state.currentMode}</span>
             </div>
-            <div className="next-mode">{this.state.nextMode}</div>
+            <div className="next-mode">
+              {(this.state.timeToNextMode <= 5 && this.state.isTimerActive) ? (
+                <span>{this.state.timeToNextMode}</span>
+              ) : (
+                <span />
+              )}
+              {` ${this.state.nextMode}`}
+            </div>
           </div>
         </div>
         {this.state.isTimerActive ? (
