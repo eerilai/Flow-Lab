@@ -141,14 +141,16 @@ class App extends React.Component {
         <div className="time-input">
           <TimerInterface updateTimer={this.setTimer} />
           <div className="time-interval">
+            <div>Transition every</div>
             <input
               type="number"
               min="1"
               max={this.state.timer}
               name="interval"
-              placeholder="Interval"
+              placeholder="10"
               onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
             />
+            <div>seconds</div>
           </div>
           <div className="start-button">
             <button onClick={this.startTimer}>Start</button>
