@@ -6,6 +6,7 @@
   "scripts": {
     "server": "nodemon index.js",
     "webpack": "webpack -d --watch",
+    "sass": "sass --watch client/src/index.scss client/src/index.css",
     "start": "node index.js"
   },
   "repository": {

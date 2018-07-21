@@ -4,3 +4,4 @@ logs
 npm-debug.log*
 node_modules/
 client/dist/bundle.js
+client/src/index.css.map
