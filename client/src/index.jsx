@@ -21,6 +21,7 @@ class App extends React.Component {
       isTimerActive: false,
     };
 
+    this.initialTime = 180;
     this.unusedModes = [];
     this.modeSwitchInterval = 10;
     this.lastSwitchTime = 0;
@@ -28,6 +29,7 @@ class App extends React.Component {
     this.convertToMinutes = this.convertToMinutes.bind(this);
     this.setTimer = this.setTimer.bind(this);
     this.startTimer = this.startTimer.bind(this);
+    this.stopTimer = this.stopTimer.bind(this);
     this.decrementTimer = this.decrementTimer.bind(this);
     this.toggleMode = this.toggleMode.bind(this);
     this.setRandomMode = this.setRandomMode.bind(this);
@@ -88,10 +90,21 @@ class App extends React.Component {
   }
 
   startTimer() {
+    this.initialTime = this.state.timer;
+    this.convertToMinutes();
     this.state.isTimerActive = true;
     this.time = setInterval(this.decrementTimer, 1000);
     this.unusedModes = [];
     this.setRandomMode();
+  }
+
+  stopTimer() {
+    clearInterval(this.time);
+    this.setState({
+      isTimerActive: false,
+      timer: this.initialTime,
+      currentMode: '',
+    });
   }
 
   toggleMode(mode) {
@@ -151,9 +164,6 @@ class App extends React.Component {
               onChange={(e) => { this.modeSwitchInterval = e.target.value; }}
             />
             <div>seconds</div>
-          </div>
-          <div className="start-button">
-            <button onClick={this.startTimer}>Start</button>
           </div>
         </div>
       );
@@ -216,6 +226,17 @@ class App extends React.Component {
             <span>{this.state.currentMode}</span>
           </div>
         </div>
+        {this.state.isTimerActive ? (
+          <div className="timer-control">
+            <button onClick={this.stopTimer}>
+              Stop
+            </button>
+          </div>
+        ) : (
+          <div className="timer-control">
+            <button onClick={this.startTimer}>Start</button>
+          </div>
+        )}
       </div>
     );
   }

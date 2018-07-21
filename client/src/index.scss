@@ -34,10 +34,12 @@ input {
   height: 400px;
   display: grid;
   grid-template-columns: 1fr 400px 1fr;
-  grid-template-rows: 1fr 200px;
+  grid-template-rows: 1fr 180px 50px;
+  grid-gap: 8px;
   grid-template-areas:
     "l modes r"
     "l timer r"
+    "l control r"
 }
 
 .modes {
@@ -106,6 +108,8 @@ input[type=number]::-webkit-outer-spin-button {
 
 .flow-timer {
   grid-area: timer;
+  align-items: center;
+  justify-items: center;
   font-size: 50px;
 }
 
@@ -141,6 +145,11 @@ input[type=number]::-webkit-outer-spin-button {
 .active-mode:hover {
   color: #1E1E1E;
   border-color: #FFF;
+}
+
+.timer-control {
+  margin-top: 5px;
+  grid-area: control;
 }
 
 .delete-button {
