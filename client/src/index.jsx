@@ -8,7 +8,11 @@ class App extends React.Component {
     super(props);
 
     this.defaultModes = ['Tuts', 'Whips', 'Liquid'];
-    this.userModes = JSON.parse(localStorage.userModes) || [];
+    if (localStorage.getItem('userModes')) {
+      this.userModes = JSON.parse(localStorage.getItem('userModes'));
+    } else {
+      this.userModes = [];
+    }
 
     this.state = {
       timer: 180,
@@ -153,7 +157,7 @@ class App extends React.Component {
     }
     const modes = [...this.state.modes, this.state.newMode];
     this.userModes.push(this.state.newMode);
-    localStorage.userModes = JSON.stringify(this.userModes);
+    localStorage.setItem('userModes', JSON.stringify(this.userModes));
 
     this.setState({
       newMode: '',
